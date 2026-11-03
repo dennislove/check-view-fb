@@ -21,3 +21,26 @@ npm run dev:https
 # Build sản phẩm
 npm run build
 ```
+
+## Bot Telegram báo video vượt 1000 view (chạy 24/7 trên Cloudflare)
+
+👉 **Xem hướng dẫn chi tiết từng bước tại file: [HUONG_DAN_CAIDAT.md](./HUONG_DAN_CAIDAT.md)**
+
+Thư mục `telegram-bot/` là Cloudflare Worker, chạy độc lập và không cần bật máy hay web. Bot là `@alert_view_fb_bot`.
+
+- 5 phút check 1 lần. Video nào đạt từ ngưỡng (mặc định 1000) trở lên thì bot nhắn Telegram, mỗi video chỉ báo 1 lần.
+- Lệnh trên Telegram: `/start`, `/token <access_token>`, `/status`, `/check`, `/top`, `/pages`, `/nguong 2000`, `/pause`, `/resume`, `/stop`.
+- Token Facebook gửi cho bot bằng lệnh `/token`. Bot sẽ tự xoá tin nhắn chứa token.
+
+Deploy lại sau khi sửa code:
+```bash
+cd telegram-bot
+npm install
+npx wrangler deploy
+npx wrangler tail      # xem log realtime
+```
+
+Muốn token Facebook không bị hết hạn (bot tự đổi sang token dài hạn), đặt App Secret cho bot:
+```bash
+cd telegram-bot && npx wrangler secret put FB_APP_SECRET
+```

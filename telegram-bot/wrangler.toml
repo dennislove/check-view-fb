@@ -1,0 +1,21 @@
+name = "alert-view-fb-bot"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+
+# Tần suất check view (cron UTC). Mặc định 5 phút/lần.
+# Lưu ý: KV free = 1000 lượt ghi/ngày → không nên để dưới 5 phút.
+[triggers]
+crons = ["*/5 * * * *"]
+
+[[kv_namespaces]]
+binding = "BOT_KV"
+id = "4eede58409bb4d7bb87c49726730f6c1"
+
+[vars]
+FB_APP_ID = "838168192686538"
+VIEW_THRESHOLD = "1000"
+# Tùy chọn: chỉ cho các chat ID này dùng bot (phân cách dấu phẩy). Trống = chat đầu tiên /start là chủ bot.
+TELEGRAM_CHAT_IDS = ""
+
+[observability]
+enabled = true
